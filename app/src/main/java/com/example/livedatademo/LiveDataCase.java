@@ -113,6 +113,7 @@ public abstract class LiveDataCase<T> {
     @MainThread
     public void observe(@NonNull LifecycleOwner owner, @NonNull Observer<? super T> observer) {
         assertMainThread("observe");
+        //实例化ComponentActivity默认状态为INITIALIZED
         if (owner.getLifecycle().getCurrentState() == DESTROYED) {
             // ignore
             return;
@@ -248,6 +249,8 @@ public abstract class LiveDataCase<T> {
 
         @Override
         boolean shouldBeActive() {
+            //获取当前Activity生命周期状态，是否大于等于STARTED状态
+            //true表示当前Activity处于活跃状态
             return mOwner.getLifecycle().getCurrentState().isAtLeast(STARTED);
         }
 

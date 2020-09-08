@@ -12,6 +12,9 @@ import org.junit.Assert.*
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+//        assertEquals(4, 2 + 2)
+        val atLeast =
+            com.example.livedatademo.Test.RESUMED.isAtLeast(com.example.livedatademo.Test.STARTED)
+        println(atLeast)
     }
 }
