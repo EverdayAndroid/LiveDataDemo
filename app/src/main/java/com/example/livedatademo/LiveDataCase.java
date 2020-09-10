@@ -32,13 +32,9 @@ public abstract class LiveDataCase<T> {
     private SafeIterableMap<Observer<? super T>, ObserverWrapper> mObservers =
             new SafeIterableMap<>();
 
-    // how many observers are in active state
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
             int mActiveCount = 0;
     private volatile Object mData = NOT_SET;
-    // when setData is called, we set the pending data and actual data swap happens on the main
-    // thread
-    @SuppressWarnings("WeakerAccess") /* synthetic access */
+
     volatile Object mPendingData = NOT_SET;
     private int mVersion = START_VERSION;
 
@@ -59,9 +55,11 @@ public abstract class LiveDataCase<T> {
     };
 
     private void considerNotify(ObserverWrapper observer) {
+        Log.e("TAG","===========6");
         if (!observer.mActive) {
             return;
         }
+        Log.e("TAG","===========7");
         // Check latest state b4 dispatch. Maybe it changed state but we didn't get the event yet.
         //
         // we still first check observer.active to keep it as the entrance for events. So even if
@@ -71,9 +69,12 @@ public abstract class LiveDataCase<T> {
             observer.activeStateChanged(false);
             return;
         }
+        Log.e("TAG","===========8");
+        //-1    -1
         if (observer.mLastVersion >= mVersion) {
             return;
         }
+        Log.e("TAG","===========9");
         observer.mLastVersion = mVersion;
         //noinspection unchecked
         observer.mObserver.onChanged((T) mData);
@@ -81,30 +82,31 @@ public abstract class LiveDataCase<T> {
     @SuppressLint("RestrictedApi")
     @SuppressWarnings("WeakerAccess") /* synthetic access */
     void dispatchingValue(@Nullable ObserverWrapper initiator) {
-        Log.e("TAG","===========-2  "+mDispatchInvalidated);
+        Log.e("TAG","===========1  "+mDispatchInvalidated);
         if (mDispatchingValue) {
 
             mDispatchInvalidated = true;
             return;
         }
         mDispatchingValue = true;
-        Log.e("TAG","===========0  "+mDispatchInvalidated);
+        Log.e("TAG","===========2  "+mDispatchInvalidated);
         do {
-            Log.e("TAG","===========-1  "+mDispatchInvalidated);
+            Log.e("TAG","===========3  "+mDispatchInvalidated);
             mDispatchInvalidated = false;
             if (initiator != null) {
-                Log.e("TAG","===========1");
+                Log.e("TAG","===========4");
                 considerNotify(initiator);
                 initiator = null;
             } else {
                 for ( Iterator<Map.Entry<Observer<? super T>, ObserverWrapper>> iterator =
                      mObservers.iteratorWithAdditions(); iterator.hasNext(); ) {
-                    Log.e("TAG","===========2");
+                    Log.e("TAG","===========5");
                     considerNotify(iterator.next().getValue());
                     if (mDispatchInvalidated) {
                         break;
                     }
                 }
+                Log.e("TAG","===========-1");
             }
         } while (mDispatchInvalidated);
         mDispatchingValue = false;
@@ -120,6 +122,7 @@ public abstract class LiveDataCase<T> {
         }
         LifecycleBoundObserver wrapper = new LifecycleBoundObserver(owner, observer);
         ObserverWrapper existing = mObservers.putIfAbsent(observer, wrapper);
+        //判断LifecycleOwner同一块内存地址
         if (existing != null && !existing.isAttachedTo(owner)) {
             throw new IllegalArgumentException("Cannot add the same observer"
                     + " with different lifecycles");
@@ -127,6 +130,7 @@ public abstract class LiveDataCase<T> {
         if (existing != null) {
             return;
         }
+        //添加观察者
         owner.getLifecycle().addObserver(wrapper);
     }
 
@@ -195,6 +199,7 @@ public abstract class LiveDataCase<T> {
 
     @MainThread
     protected void setValue(T value) {
+        Log.e("TAG","setValue");
         assertMainThread("setValue");
         mVersion++;
         mData = value;

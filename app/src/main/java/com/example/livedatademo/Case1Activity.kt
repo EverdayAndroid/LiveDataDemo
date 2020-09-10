@@ -1,6 +1,7 @@
 package com.example.livedatademo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,12 +18,18 @@ class Case1Activity:AppCompatActivity() {
             ViewModelStore(),
             ViewModelProvider.AndroidViewModelFactory(App.getInstance())
         )
-        val mModel = viewModelProvider.get(CaseViewModel::class.java)
-        mModel.currentName.value = "LiveData_Case1"
-        mModel.currentName.observe(this, Observer {
-            tvName.text = it
-        })
-//        mModel.currentName.postValue("LiveData")
+//        val mModel = viewModelProvider.get(CaseViewModel::class.java)
+//        mModel.currentName.observe(this, Observer {
+//            Log.e("TAG",it)
+//            tvName.text = it
+//        })
+////        mModel.currentName.postValue("LiveData")
+//        mModel.currentName.value = "LiveData_Case1"
 
+        LiveDataBus.get().with1("wt",String::class.java)
+            .observe(this, Observer {
+                tvName.text = it
+            })
     }
+
 }
