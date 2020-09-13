@@ -9,7 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import com.example.livedatademo.model.CaseViewModel
 import kotlinx.android.synthetic.main.activity_case3.*
-
+/**
+ * @author wt
+ * @date 10:54 2020/9/13
+ * @description   注册监听
+ **/
 class Case3Activity : AppCompatActivity() {
     var mModel:CaseViewModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +26,12 @@ class Case3Activity : AppCompatActivity() {
         mModel?.currentName?.observe(this, Observer {
             tvName.text = it
         })
+        mModel?.currentName?.observeForever(Observer {
+
+        })
+        mModel?.currentName?.observeForever {
+            tvName.text = it
+        }
     }
 
 
@@ -38,5 +48,6 @@ class Case3Activity : AppCompatActivity() {
 
     fun liveData(view: View){
         mModel?.currentName?.value = "Hello LiveData"
+//        mModel?.currentName?.postValue("Hello LiveData")
     }
 }

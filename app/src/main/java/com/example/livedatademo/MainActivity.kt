@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun case3(view: View) {
-        //旋转屏幕
+        //多次注册
         startActivity(Intent(this,Case3Activity::class.java))
     }
 
