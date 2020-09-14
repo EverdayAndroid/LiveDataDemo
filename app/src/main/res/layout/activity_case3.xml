@@ -5,55 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Case2Activity">
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvName"
-        android:text="textView"
-        android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LiveData"
-        android:id="@+id/liveBtn"
-        android:onClick="liveData"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@id/btn"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="横屏旋转"
-        android:id="@+id/btn"
-        android:onClick="btn"
-        app:layout_constraintBottom_toTopOf="@id/btn1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="竖屏旋转"
         android:id="@+id/btn1"
-        android:onClick="btn1"
-        app:layout_constraintBottom_toTopOf="@id/btn2"
+        android:text="多次注册"
+        android:textSize="30sp"
+        android:onClick="btnClick"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn2"
+        tools:ignore="OnClick" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="赋值"
         android:id="@+id/btn2"
-        android:onClick="btn2"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="fix多次注册"
+        android:textSize="30sp"
+        android:onClick="btnClick1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="OnClick" />
 </androidx.constraintlayout.widget.ConstraintLayout>

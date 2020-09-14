@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="先发送后注册"
+        android:text="先发送后注册,还可以收到消息"
         android:id="@+id/case1"
         android:onClick="case1"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -19,7 +19,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="fix"
+        android:text="数据丢失"
         android:id="@+id/case2"
         android:onClick="case2"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -28,7 +28,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="fix"
+        android:text="多次注册"
         android:id="@+id/case3"
         android:onClick="case3"
         app:layout_constraintLeft_toLeftOf="parent"

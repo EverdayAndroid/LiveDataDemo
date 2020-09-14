@@ -17,8 +17,8 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this,Case1Activity::class.java))
     }
 
+
     fun case2(view: View) {
-        LiveDataBus.get().with("wt", String::class.java).postValue("Hello LiveData")
         startActivity(Intent(this,Case2Activity::class.java))
     }
 

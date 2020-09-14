@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static androidx.lifecycle.Lifecycle.State.DESTROYED;
 import static androidx.lifecycle.Lifecycle.State.STARTED;
@@ -33,6 +34,8 @@ public abstract class LiveDataCase<T> {
             new SafeIterableMap<>();
 
             int mActiveCount = 0;
+    //每个线程都有一个私有的本地内存（Local Memory），
+    //本地内存保存了被该线程使用到的主内存的副本拷贝，线程对变量的所有操作都必须在工作内存中进行，而不能直接读写主内存中的变量
     private volatile Object mData = NOT_SET;
 
     volatile Object mPendingData = NOT_SET;
@@ -190,7 +193,10 @@ public abstract class LiveDataCase<T> {
             postTask = mPendingData == NOT_SET;
             mPendingData = value;
         }
+
+        //如果上一次消息没有被消费，此时在进行发送消息事件，就会导致数据丢失
         if (!postTask) {
+            Log.e("WT","===========");
             return;
         }
         ArchTaskExecutor.getInstance().postToMainThread(mPostValueRunnable);
@@ -262,6 +268,7 @@ public abstract class LiveDataCase<T> {
         @Override
         public void onStateChanged(LifecycleOwner source, Lifecycle.Event event) {
             if (mOwner.getLifecycle().getCurrentState() == DESTROYED) {
+                Log.e("TAG","=====DESTROYED");
                 removeObserver(mObserver);
                 return;
             }
