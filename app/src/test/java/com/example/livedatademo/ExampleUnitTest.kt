@@ -24,23 +24,23 @@ class ExampleUnitTest {
 //        println(putIfAbsent)
 //        val putIfAbsent1 = map.putIfAbsent("wt", "hello")
 //        println(putIfAbsent1)
-//        var index = 0
-//        do {
-//            println("============")
-//            index = 1
-//        }while (index == 0)
+        var index = -1
+        do {
+            println("============")
+            index ++
+        }while (index == 0)
 
 
-        for (index in 0 .. 3){
-            Thread{
-//                mData += 1
-                add()
-            }.start()
-        }
-        while (Thread.activeCount() > 1){
-            Thread.yield()
-        }
-        println(mData)
+//        for (index in 0 .. 3){
+//            Thread{
+////                mData += 1
+//                add()
+//            }.start()
+//        }
+//        while (Thread.activeCount() > 1){
+//            Thread.yield()
+//        }
+//        println(mData)
     }
     @Synchronized
     private fun add(){

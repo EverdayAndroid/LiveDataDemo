@@ -45,7 +45,8 @@ class Case3Activity : AppCompatActivity() {
     }
     //fix修复多次注册
     fun btnClick1(view: View) {
-        mModel?.demo1?.observe(this, observer)
+//        mModel?.demo1?.observe(this, observer)
+        mModel?.demo1?.observeForever(observer)
         mModel?.demo1?.value = "Hello LiveDta"
     }
 }

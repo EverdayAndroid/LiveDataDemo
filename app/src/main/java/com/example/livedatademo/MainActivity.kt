@@ -27,5 +27,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this,Case3Activity::class.java))
     }
 
+    fun case4(view: View) {
+        //数据转换
+        startActivity(Intent(this,Case4Activity::class.java))
+    }
+
 
 }

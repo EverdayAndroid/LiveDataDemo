@@ -102,7 +102,7 @@ public abstract class LiveDataCase<T> {
                 initiator = null;
             } else {
                 for ( Iterator<Map.Entry<Observer<? super T>, ObserverWrapper>> iterator =
-                     mObservers.iteratorWithAdditions(); iterator.hasNext(); ) {
+                      mObservers.iteratorWithAdditions(); iterator.hasNext(); ) {
                     Log.e("TAG","===========5");
                     considerNotify(iterator.next().getValue());
                     if (mDispatchInvalidated) {
@@ -315,9 +315,11 @@ public abstract class LiveDataCase<T> {
             boolean wasInactive = LiveDataCase.this.mActiveCount == 0;
             LiveDataCase.this.mActiveCount += mActive ? 1 : -1;
             if (wasInactive && mActive) {
+                //活跃
                 onActive();
             }
             if (LiveDataCase.this.mActiveCount == 0 && !mActive) {
+                //不活跃
                 onInactive();
             }
             if (mActive) {
